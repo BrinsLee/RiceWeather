@@ -1,54 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center">
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="100sp"
-        android:text="20°"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@android:color/black"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/weather"
-        android:textSize="35sp"
-        android:textColor="@android:color/black"
-        app:layout_constraintStart_toEndOf="@id/temp"
-        android:text="Sunny"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="15dp"
-        />
+    <data>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/maxTemp"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/weather"
-        app:layout_constraintEnd_toEndOf="@id/weather"
-        app:layout_constraintTop_toBottomOf="@id/weather"
-        android:text="28°"
-        android:layout_marginStart="15dp"
-        />
+        <variable
+            name="weather"
+            type="com.brins.riceweather.data.model.weather.Weather" />
+    </data>
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/minTemp"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@id/weather"
-        app:layout_constraintEnd_toEndOf="@id/weather"
-        app:layout_constraintTop_toBottomOf="@id/maxTemp"
-        android:text="17°"
-        android:layout_marginStart="15dp"
-        />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{weather.now.degree()}"
+            android:textColor="@android:color/black"
+            android:textSize="100sp"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/weather"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:text="@{weather.now.more.info}"
+            android:textColor="@android:color/black"
+            android:textSize="35sp"
+            app:layout_constraintStart_toEndOf="@id/temp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/maxTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@{weather.now.windDir}"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@id/weather"
+            app:layout_constraintStart_toStartOf="@id/weather"
+            app:layout_constraintTop_toBottomOf="@id/weather" />
+
+        <TextView
+            android:id="@+id/minTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="@{weather.now.windSc}"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@id/weather"
+            app:layout_constraintStart_toStartOf="@id/weather"
+            app:layout_constraintTop_toBottomOf="@id/maxTemp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

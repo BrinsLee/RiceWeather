@@ -1,88 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".ui.MainActivity">
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
 
+    <data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.brins.riceweather.ui.weather.WeatherViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        tools:context=".ui.MainActivity">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appBar"
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:background="@drawable/bg_sunny"
-                android:fitsSystemWindows="true">
+                android:layout_height="match_parent">
 
-                <com.google.android.material.appbar.CollapsingToolbarLayout
-                    android:id="@+id/collapsing_toolbar"
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:background="@drawable/bg_sunny"
+                    android:fitsSystemWindows="true">
+
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        android:id="@+id/collapsing_toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        app:contentScrim="@android:color/transparent"
+                        app:expandedTitleMarginEnd="10dp"
+                        app:expandedTitleMarginStart="10dp"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <include
+                                android:id="@+id/titleView"
+                                layout="@layout/include_title_view"
+                                bind:weather="@{viewModel.weather}" />
+                            <!--                        <ImageView
+                                                        android:id="@+id/titleMenu"
+                                                        android:layout_width="0dp"
+                                                        android:layout_height="0dp"
+                                                        android:src="@drawable/bg_sunny"
+                                                        app:layout_collapseMode="pin"
+                                                        app:layout_collapseParallaxMultiplier="0.5"
+                                                        app:layout_constraintBottom_toBottomOf="parent"
+                                                        app:layout_constraintDimensionRatio="300:300"
+                                                        app:layout_constraintEnd_toEndOf="parent"
+                                                        app:layout_constraintTop_toTopOf="parent" />-->
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!--            <com.makeramen.roundedimageview.RoundedImageView
+                                        android:id="@+id/avatar"
+                                        android:layout_width="60dp"
+                                        android:layout_height="60dp"
+                                        android:layout_marginEnd="20dp"
+                                        android:scaleType="fitCenter"
+                                        android:src="@drawable/ic_avatar"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintEnd_toEndOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:riv_corner_radius="50dp" />-->
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    app:contentScrim="@android:color/transparent"
-                    app:expandedTitleMarginEnd="10dp"
-                    app:expandedTitleMarginStart="10dp"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                    android:fillViewport="true"
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
                         <include
-                            android:id="@+id/titleView"
-                            layout="@layout/include_title_view" />
-<!--                        <ImageView
-                            android:id="@+id/titleMenu"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:src="@drawable/bg_sunny"
-                            app:layout_collapseMode="pin"
-                            app:layout_collapseParallaxMultiplier="0.5"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintDimensionRatio="300:300"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />-->
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            layout="@layout/include_temperature_view"
+                            bind:weather="@{viewModel.weather}" />
 
-                    <!--            <com.makeramen.roundedimageview.RoundedImageView
-                                    android:id="@+id/avatar"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:layout_marginEnd="20dp"
-                                    android:scaleType="fitCenter"
-                                    android:src="@drawable/ic_avatar"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:riv_corner_radius="50dp" />-->
-                </com.google.android.material.appbar.CollapsingToolbarLayout>
-            </com.google.android.material.appbar.AppBarLayout>
+                        <include
+                            layout="@layout/include_weather_view"
+                            bind:weather="@{viewModel.weather}" />
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <include layout="@layout/include_temperature_view"/>
-                    <include layout="@layout/include_weather_view"/>
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
