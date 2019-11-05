@@ -97,6 +97,7 @@
                         <include
                             layout="@layout/include_weather_view"
                             bind:weather="@{viewModel.weather}" />
+
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
 

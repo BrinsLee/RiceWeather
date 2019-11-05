@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RiceWeather</string>
+    <string name="daily_view">每日概览</string>
 </resources>

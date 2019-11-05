@@ -33,7 +33,7 @@
             android:layout_marginTop="10dp"
             android:text="@{weather.now.more.info}"
             android:textColor="@android:color/black"
-            android:textSize="35sp"
+            android:textSize="28sp"
             app:layout_constraintStart_toEndOf="@id/temp"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="@{weather.now.windSc}"
+            android:text="@{weather.now.windSc()}"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="@id/weather"
             app:layout_constraintStart_toStartOf="@id/weather"
