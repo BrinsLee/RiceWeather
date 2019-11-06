@@ -1,5 +1,6 @@
 package com.brins.riceweather.data.model.weather
 
+import com.brins.riceweather.R
 import com.google.gson.annotations.SerializedName
 
 class Forecast {
@@ -17,5 +18,8 @@ class Forecast {
     inner class More {
         @SerializedName("txt_d")
         var info = ""
+    }
+    fun getWeathreImage() : Int{
+        return R.drawable.ic_icon_cloundy
     }
 }

@@ -27,6 +27,6 @@ fun TextView.showMax(weather : Weather){
 }
 
 @BindingAdapter("showMin")
-fun TextView.showMin(weather : Weather){
+fun TextView.showMin(weather : Weather?) = weather?.let {
     text = "${weather.forecastList[0].temperature.min}°"
 }
