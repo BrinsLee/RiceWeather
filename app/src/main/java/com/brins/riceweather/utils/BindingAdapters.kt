@@ -22,11 +22,11 @@ fun SwipeRefreshLayout.colorSchemeResources(resId: Int) {
 }
 
 @BindingAdapter("bind:showMax")
-fun TextView.showMax(weather : Weather){
-    text = "${weather.forecastList[0].temperature.max}°"
+fun TextView.showMax(weather : Weather?) = weather?.let{
+    text = "${it.forecastList[0].temperature.max}°"
 }
 
-@BindingAdapter("showMin")
-fun TextView.showMin(weather : Weather?) = weather?.let {
-    text = "${weather.forecastList[0].temperature.min}°"
+@BindingAdapter("bind:showMin")
+fun TextView.showMin(weather : Weather?) = weather?.let{
+    text = "${it.forecastList[0].temperature.min}°"
 }
