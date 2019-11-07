@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-            name="forecast"
-            type="com.brins.riceweather.data.model.weather.Forecast" />
+            name="weather"
+            type="com.brins.riceweather.data.model.weather.Weather" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp">
 
-        <TextView
-            android:id="@+id/tvDate"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="@{forecast.date}"/>
+        <include
+            layout="@layout/item_daily_forecast"
+            bind:forecast="@{weather.forecastList.get(0)}" />
 
-        <TextView
-            android:id="@+id/tvWeather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:layout_marginTop="10dp"
-            android:text="@{forecast.more.info}"/>
+        <include
+            layout="@layout/item_daily_forecast"
+            bind:forecast="@{weather.forecastList.get(1)}" />
+
+        <include
+            layout="@layout/item_daily_forecast"
+            bind:forecast="@{weather.forecastList.get(2)}" />
+
+        <include
+            layout="@layout/item_daily_forecast"
+            bind:forecast="@{weather.forecastList.get(3)}" />
+
+        <include
+            layout="@layout/item_daily_forecast"
+            bind:forecast="@{weather.forecastList.get(4)}" />
+
+        <include
+            layout="@layout/item_daily_forecast"
+            bind:forecast="@{weather.forecastList.get(5)}" />
+
+
     </LinearLayout>
 </layout>

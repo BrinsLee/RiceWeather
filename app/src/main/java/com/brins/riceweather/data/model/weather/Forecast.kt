@@ -13,13 +13,20 @@ class Forecast {
     inner class Temperature {
         var max = ""
         var min = ""
+
+        fun max() = "$max ℃"
+        fun min() = "$min ℃"
+
     }
 
     inner class More {
         @SerializedName("txt_d")
         var info = ""
     }
-    fun getWeathreImage() : Int{
+
+    fun getWeathreImage(): Int {
         return R.drawable.ic_icon_cloundy
     }
+
+    fun date() = date.substring(5, date.length)
 }
