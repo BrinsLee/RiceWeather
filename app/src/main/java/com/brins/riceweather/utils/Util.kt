@@ -3,6 +3,7 @@ package com.brins.riceweather.utils
 import android.os.Handler
 import android.os.Message
 import android.util.Log
+import com.brins.riceweather.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +43,6 @@ fun launch(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) = Coro
 }
 
 
-
 suspend fun <T> Call<T>.await(): T {
     return suspendCoroutine { continuation ->
         enqueue(object : Callback<T> {
@@ -59,3 +59,14 @@ suspend fun <T> Call<T>.await(): T {
         })
     }
 }
+
+val WEATHER_SUNNY = "100"
+val WEATHER_CLOUNDY = "101"
+val WEATHER_OVERCAST = "104"
+
+val map =
+    mapOf(
+        WEATHER_SUNNY to R.drawable.bg_sunny,
+        WEATHER_OVERCAST to R.drawable.bg_haze,
+        WEATHER_CLOUNDY to R.drawable.bg_haze
+    )

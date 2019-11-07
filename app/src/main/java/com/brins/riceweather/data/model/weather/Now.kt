@@ -1,5 +1,8 @@
 package com.brins.riceweather.data.model.weather
 
+import androidx.annotation.DrawableRes
+import com.brins.riceweather.R
+import com.brins.riceweather.utils.map
 import com.google.gson.annotations.SerializedName
 
 class Now {
@@ -25,8 +28,25 @@ class Now {
 
     @SerializedName("pcpn")
     var percipitation = ""
+
+    @SerializedName("cond_code")
+    var condCode = ""
+
+    @DrawableRes
+    fun weatherDrawable(): Int {
+        return if (map[condCode] == null) R.drawable.bg_sunny else map[condCode]!!
+    }
+
     inner class More {
         @SerializedName("txt")
         var info = ""
+
+        @SerializedName("code")
+        var code = ""
+        /*
+        晴 100
+        阴 104
+        多云 101
+        */
     }
 }

@@ -4,6 +4,7 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="com.brins.riceweather.ui.view.ForecastLineView"/>
 
         <variable
             name="viewModel"
@@ -32,7 +33,7 @@
                     android:id="@+id/appBar"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
-                    android:background="@drawable/bg_sunny"
+                    bind:background="@{viewModel.weather.now.weatherDrawable()}"
                     android:fitsSystemWindows="true">
 
                     <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -84,11 +85,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fillViewport="true"
+                    android:background="@color/white_90"
                     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/white_90"
                         android:orientation="vertical">
 
                         <include
@@ -100,9 +103,26 @@
                             bind:weather="@{viewModel.weather}" />
 
                         <include
-                            layout="@layout/view_daily_forcast"
-                            bind:forecast= "@{viewModel.weather.forecastList.get(0)}"/>
+                            layout="@layout/item_title_view"
+                            bind:title = "@{@string/daily_view}"/>
+                        <com.brins.riceweather.ui.view.RoundConstraintLayout
+                            android:background="@color/bg_main"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginTop="10dp"
+                            app:round_corner="20dp"
+                            android:paddingTop="20dp"
+                            android:paddingBottom="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <com.brins.riceweather.ui.view.ForecastLineView
+                                android:layout_width="match_parent"
+                                android:layout_height="150dp"
+                                bind:forecastData="@{viewModel.weather.forecastList}">
 
+                            </com.brins.riceweather.ui.view.ForecastLineView>
+
+                        </com.brins.riceweather.ui.view.RoundConstraintLayout>
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
 

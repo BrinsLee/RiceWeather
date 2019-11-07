@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,11 +9,19 @@
             type="com.brins.riceweather.data.model.weather.Weather" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.brins.riceweather.ui.view.RoundConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="20dp"
+        android:layout_margin="20dp"
+        app:round_corner="20dp"
+        android:background="@color/bg_main"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
+
+
 
         <LinearLayout
             android:layout_width="0dp"
@@ -80,4 +89,6 @@
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
-</layout>
+</com.brins.riceweather.ui.view.RoundConstraintLayout>
+
+    </layout>
