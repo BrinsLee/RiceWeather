@@ -5,5 +5,16 @@
     <color name="colorAccent">#3b3b3b</color>
 
     <color name="translate">#4DFFFFFF</color>
-    <color name="textcolor">#FFC107</color>
+    <color name="textcolor">#F7B202</color>
+
+    <color name="bg_main">#EEEEEE</color>
+    <color name="white">#ffffff</color>
+    <color name="white_10">#1AFFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+    <color name="white_30">#4DFFFFFF</color>
+    <color name="white_50">#80FFFFFF</color>
+    <color name="white_60">#99FFFFFF</color>
+    <color name="white_70">#B3FFFFFF</color>
+    <color name="white_80">#CCFFFFFF</color>
+    <color name="white_90">#E6FFFFFF</color>
 </resources>

@@ -7,7 +7,6 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import com.brins.riceweather.data.model.weather.Forecast
-import java.util.HashMap
 
 class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet?) :
     View(context, attributeSet) {
@@ -57,11 +56,14 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
         val axisPaint = Paint()
         axisPaint.textSize = mYAxisFontSize
         axisPaint.color = Color.parseColor("#383838")
-        val yPoints = IntArray(6)
+        //y点坐标集合
+        val yPointMax = IntArray(6)
+        val yPointMin = IntArray(6)
         val yInterval = ((mHeight.toFloat() - mYAxisFontSize - 2f) / 2f).toInt()
 
+        //x点坐标集合
         val xPoints = IntArray(6)
-        val xItemX = 35
+        val xItemX = 45
         val xOffset = 50
         val xInterval = (mWidth - xOffset) / 6
         val xItemY = (mYAxisFontSize + 2 * yInterval).toInt()
@@ -77,9 +79,10 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
                 (i * xInterval + xItemX + xOffset).toFloat(), xItemY - 2f, axisPaint
             )
 
-            yPoints[i] = (xItemY - forecastLists!![i].temperature.max.toInt() - yInterval - 10)
+            yPointMax[i] = (xItemY - forecastLists!![i].temperature.max.toInt() - 3 * yInterval / 2)
+            yPointMin[i] = (xItemY - forecastLists!![i].temperature.min.toInt() - yInterval / 2)
             xPoints[i] =
-                ((i * xInterval + xItemX + xOffset + 10).toFloat()).toInt()
+                ((i * xInterval + xItemX + xOffset + 20).toFloat()).toInt()
 
 
         }
@@ -100,16 +103,31 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
             //画点
             canvas.drawCircle(
                 xPoints[i].toFloat(),
-                yPoints[i].toFloat(),
+                yPointMax[i].toFloat(),
+                mPointRadius,
+                pointPaint
+            )
+
+            canvas.drawCircle(
+                xPoints[i].toFloat(),
+                yPointMin[i].toFloat(),
                 mPointRadius,
                 pointPaint
             )
             if (i > 0) {
                 canvas.drawLine(
                     xPoints[i - 1].toFloat(),
-                    yPoints[i - 1].toFloat(),
+                    yPointMax[i - 1].toFloat(),
                     xPoints[i].toFloat(),
-                    yPoints[i].toFloat(),
+                    yPointMax[i].toFloat(),
+                    linePaint
+                )
+
+                canvas.drawLine(
+                    xPoints[i - 1].toFloat(),
+                    yPointMin[i - 1].toFloat(),
+                    xPoints[i].toFloat(),
+                    yPointMin[i].toFloat(),
                     linePaint
                 )
             }

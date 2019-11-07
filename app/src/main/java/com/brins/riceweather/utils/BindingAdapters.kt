@@ -1,9 +1,11 @@
 package com.brins.riceweather.utils
 
 import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -37,4 +39,9 @@ fun TextView.showMin(weather : Weather?) = weather?.let{
 fun ForecastLineView.forecastData(forecastList : List<Forecast>?) = forecastList?.let {
     forecastLists = forecastList
     invalidate()
+}
+
+@BindingAdapter("bind:background")
+fun ViewGroup.setWeatherBackground(@DrawableRes background : Int){
+    setBackgroundResource(background)
 }
