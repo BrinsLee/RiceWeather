@@ -4,6 +4,7 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="com.brins.riceweather.ui.view.ForecastLineView"/>
 
         <variable
             name="viewModel"
@@ -99,10 +100,12 @@
                             layout="@layout/include_weather_view"
                             bind:weather="@{viewModel.weather}" />
 
-                        <include
-                            layout="@layout/view_daily_forcast"
-                            bind:forecast= "@{viewModel.weather.forecastList.get(0)}"/>
+                        <com.brins.riceweather.ui.view.ForecastLineView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            bind:forecastData="@{viewModel.weather.forecastList}">
 
+                        </com.brins.riceweather.ui.view.ForecastLineView>
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
 
