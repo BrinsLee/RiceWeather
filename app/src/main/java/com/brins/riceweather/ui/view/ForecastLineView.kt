@@ -63,19 +63,19 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
 
         //x点坐标集合
         val xPoints = IntArray(6)
-        val xItemX = 40
+        val xItemX = 42
         val xOffset = 50
         val xInterval = (mWidth - xOffset) / 6
         val xItemY = (mYAxisFontSize + 2 * yInterval).toInt()
 
         for (i in 0..5) {
             canvas.drawText(
-                forecastLists!![i].temperature.max,
+                forecastLists!![i].temperature.max(),
                 (i * xInterval + xItemX + xOffset).toFloat(), xItemY - yInterval * 2f, axisPaint
             )
 
             canvas.drawText(
-                forecastLists!![i].temperature.min,
+                forecastLists!![i].temperature.min(),
                 (i * xInterval + xItemX + xOffset).toFloat(), xItemY - 2f, axisPaint
             )
 

@@ -17,8 +17,8 @@ class Forecast {
         var max = ""
         var min = ""
 
-        fun max() = "$max ℃"
-        fun min() = "$min ℃"
+        fun max() = "$max℃"
+        fun min() = "$min℃"
 
     }
 
@@ -29,7 +29,7 @@ class Forecast {
 
     @DrawableRes
     fun weatherImages(): Int {
-        return if (weatherMap[more.info] == null) R.drawable.bg_sunny else weatherMap[more.info]!!
+        return if (weatherMap[more.info] == null) R.drawable.ic_weather_sunny else weatherMap[more.info]!!
     }
 
     fun date() = date.substring(5, date.length)

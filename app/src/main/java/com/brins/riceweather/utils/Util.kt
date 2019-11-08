@@ -3,13 +3,16 @@ package com.brins.riceweather.utils
 import android.os.Handler
 import android.os.Message
 import android.util.Log
+import androidx.room.TypeConverter
 import com.brins.riceweather.R
+import com.brins.riceweather.data.model.weather.Now
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Exception
 import java.lang.ref.WeakReference
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -29,6 +32,25 @@ class WeakHandler(handler: IHandler) : Handler() {
         if (handler != null && msg != null) {
             handler.handleMsg(msg)
         }
+    }
+}
+
+class WeatherNowConverter {
+    @TypeConverter
+    fun revert(weatherInfo: String): Now.More? {
+        try {
+            val more = Now.More()
+            more.info = weatherInfo
+            return more
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    @TypeConverter
+    fun convert(more: Now.More) : String {
+        return more.info
     }
 }
 
@@ -80,4 +102,4 @@ val weatherMap =
         "中雨" to R.drawable.ic_weather_rain,
         "大雨" to R.drawable.ic_weather_rain,
         "雷阵雨" to R.drawable.ic_weather_rain
-        )
+    )

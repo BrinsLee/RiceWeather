@@ -5,5 +5,6 @@ import com.brins.riceweather.data.WeatherRepository
 
 class MainViewModel(private val repository: WeatherRepository) : ViewModel() {
 
+    //    fun isWeatherCached() = repository.isWeatherCached()
 
-}//    fun isWeatherCached() = repository.isWeatherCached()
+}
