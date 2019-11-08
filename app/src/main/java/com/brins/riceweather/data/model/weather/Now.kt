@@ -37,6 +37,7 @@ class Now {
         return if (map[condCode] == null) R.drawable.bg_sunny else map[condCode]!!
     }
 
+
     inner class More {
         @SerializedName("txt")
         var info = ""

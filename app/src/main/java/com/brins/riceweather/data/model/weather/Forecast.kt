@@ -1,6 +1,9 @@
 package com.brins.riceweather.data.model.weather
 
+import androidx.annotation.DrawableRes
 import com.brins.riceweather.R
+import com.brins.riceweather.utils.map
+import com.brins.riceweather.utils.weatherMap
 import com.google.gson.annotations.SerializedName
 
 class Forecast {
@@ -24,8 +27,9 @@ class Forecast {
         var info = ""
     }
 
-    fun getWeathreImage(): Int {
-        return R.drawable.ic_icon_cloundy
+    @DrawableRes
+    fun weatherImages(): Int {
+        return if (weatherMap[more.info] == null) R.drawable.bg_sunny else weatherMap[more.info]!!
     }
 
     fun date() = date.substring(5, date.length)

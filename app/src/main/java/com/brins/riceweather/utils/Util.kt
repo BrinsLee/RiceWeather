@@ -70,3 +70,14 @@ val map =
         WEATHER_OVERCAST to R.drawable.bg_haze,
         WEATHER_CLOUNDY to R.drawable.bg_haze
     )
+
+val weatherMap =
+    mapOf(
+        "晴" to R.drawable.ic_weather_sunny,
+        "多云" to R.drawable.ic_weather_cloundy,
+        "阴" to R.drawable.ic_weather_cloundy,
+        "小雨" to R.drawable.ic_weather_rain,
+        "中雨" to R.drawable.ic_weather_rain,
+        "大雨" to R.drawable.ic_weather_rain,
+        "雷阵雨" to R.drawable.ic_weather_rain
+        )

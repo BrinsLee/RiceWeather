@@ -19,28 +19,34 @@ fun ImageView.loadBingPic(url: String?) {
     if (url != null) Glide.with(context).load(url).into(this)
 }
 
+@BindingAdapter("bind:weatherDrawable")
+fun ImageView.loadWeatherIcon(forecast: Forecast?) {
+    if (forecast != null) setImageResource(forecast.weatherImages())
+
+}
+
 @BindingAdapter("bind:colorSchemeResources")
 fun SwipeRefreshLayout.colorSchemeResources(resId: Int) {
     setColorSchemeResources(resId)
 }
 
 @BindingAdapter("bind:showMax")
-fun TextView.showMax(weather : Weather?) = weather?.let{
+fun TextView.showMax(weather: Weather?) = weather?.let {
     text = "${it.forecastList[0].temperature.max}°"
 }
 
 @BindingAdapter("bind:showMin")
-fun TextView.showMin(weather : Weather?) = weather?.let{
+fun TextView.showMin(weather: Weather?) = weather?.let {
     text = "${it.forecastList[0].temperature.min}°"
 }
 
 @BindingAdapter("bind:forecastData")
-fun ForecastLineView.forecastData(forecastList : List<Forecast>?) = forecastList?.let {
+fun ForecastLineView.forecastData(forecastList: List<Forecast>?) = forecastList?.let {
     forecastLists = forecastList
     invalidate()
 }
 
 @BindingAdapter("bind:background")
-fun ViewGroup.setWeatherBackground(@DrawableRes background : Int){
+fun ViewGroup.setWeatherBackground(@DrawableRes background: Int) {
     setBackgroundResource(background)
 }
