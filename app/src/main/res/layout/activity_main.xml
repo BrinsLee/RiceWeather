@@ -11,7 +11,8 @@
             type="com.brins.riceweather.ui.weather.WeatherViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -82,6 +83,7 @@
                 </com.google.android.material.appbar.AppBarLayout>
 
                 <androidx.core.widget.NestedScrollView
+                    android:id="@+id/nested"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fillViewport="true"

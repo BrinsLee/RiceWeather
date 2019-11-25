@@ -39,24 +39,22 @@ class WeakHandler(handler: IHandler) : Handler() {
         }
     }
 }
-
-class WeatherNowConverter {
-    @TypeConverter
-    fun revert(weatherInfo: String): Now.More? {
-        try {
-            val more = Now.More()
-            more.info = weatherInfo
-            return more
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return null
+//Now.more 转换器
+@TypeConverter
+fun revert(weatherInfo: String): Now.More? {
+    try {
+        val more = Now.More()
+        more.info = weatherInfo
+        return more
+    } catch (e: Exception) {
+        e.printStackTrace()
     }
+    return null
+}
 
-    @TypeConverter
-    fun convert(more: Now.More) : String {
-        return more.info
-    }
+@TypeConverter
+fun convert(more: Now.More): String {
+    return more.info
 }
 
 fun launch(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) = CoroutineScope(
@@ -108,8 +106,6 @@ val weatherMap =
         "大雨" to R.drawable.ic_weather_rain,
         "雷阵雨" to R.drawable.ic_weather_rain
     )
-
-
 
 
 /**

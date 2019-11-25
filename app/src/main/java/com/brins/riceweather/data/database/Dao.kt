@@ -7,4 +7,6 @@ interface Dao {
     @Insert
     fun addWeather(weather: Now) : Single<Int>
 
+    @Insert
+    fun addWeatherForecast()
 }

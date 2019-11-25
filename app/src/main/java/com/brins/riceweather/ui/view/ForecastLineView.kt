@@ -84,6 +84,8 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
         Log.d(TAG, "xOffset,$xOffset")
 
         val xItemY = (mYAxisFontSize + 2 * yInterval).toInt()
+        Log.d(TAG, "xItemY,$xItemY")
+
 
         for (i in 0..5) {
             canvas.drawText(
@@ -96,8 +98,8 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
                 (i * (xOffset) + xItemX), xItemY - 2f, axisPaint
             )
 
-            yPointMax[i] = (xItemY - forecastLists!![i].temperature.max.toInt() - 3 * yInterval / 2)
-            yPointMin[i] = (xItemY - forecastLists!![i].temperature.min.toInt() - yInterval / 2)
+            yPointMax[i] = (xItemY - forecastLists!![i].temperature.max.toInt() * 2 - 4 * yInterval / 3)
+            yPointMin[i] = (xItemY - forecastLists!![i].temperature.min.toInt() * 2 - yInterval / 2)
             xPoints[i] = (i * xOffset + xItemX + 18)
 
 

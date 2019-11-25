@@ -42,10 +42,13 @@ class Now {
     var windDir = ""
 
     @SerializedName("wind_sc")
+    @ColumnInfo(name = "wind")
     var windSc = ""
 
     fun windSc() = "$windSc 级"
+
     @SerializedName("hum")
+    @ColumnInfo(name = "hum")
     var humidity = ""
 
     @SerializedName("pcpn")
