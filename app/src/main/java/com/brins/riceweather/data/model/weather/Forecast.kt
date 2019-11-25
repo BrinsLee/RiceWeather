@@ -17,8 +17,8 @@ class Forecast {
         var max = ""
         var min = ""
 
-        fun max() = "$max℃"
-        fun min() = "$min℃"
+        fun max() = "$max°"
+        fun min() = "$min°"
 
     }
 

@@ -1,14 +1,11 @@
 package com.brins.riceweather.utils
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.brins.riceweather.R
 import com.brins.riceweather.data.model.weather.Forecast
 import com.brins.riceweather.data.model.weather.Weather
 import com.brins.riceweather.ui.view.ForecastLineView

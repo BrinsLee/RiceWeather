@@ -5,8 +5,10 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import com.brins.riceweather.data.model.weather.Forecast
+import com.brins.riceweather.utils.DeviceUtils
 
 class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet?) :
     View(context, attributeSet) {
@@ -19,6 +21,7 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
     private val mYAxisFontSize = 40f
     private val mNoDataMsg = "no data"
     var forecastLists: List<Forecast>? = null
+    private var TAG = this::class.java.simpleName
 
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -37,6 +40,14 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
         setMeasuredDimension(mWidth, mHeight)
     }
 
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        Log.d(TAG, "left:$left")
+        Log.d(TAG, "top:$top")
+        Log.d(TAG, "right:$right")
+        Log.d(TAG, "bottom:$bottom")
+
+    }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -53,8 +64,12 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
             )
             return
         }
+        Log.d(TAG, "$mWidth")
+        Log.d(TAG, "$mHeight")
+
         val axisPaint = Paint()
         axisPaint.textSize = mYAxisFontSize
+        axisPaint.isAntiAlias = true
         axisPaint.color = Color.parseColor("#383838")
         //y点坐标集合
         val yPointMax = IntArray(6)
@@ -62,27 +77,28 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
         val yInterval = ((mHeight.toFloat() - mYAxisFontSize - 2f) / 2f).toInt()
 
         //x点坐标集合
-        val xPoints = IntArray(6)
-        val xItemX = 42
-        val xOffset = 50
-        val xInterval = (mWidth - xOffset) / 6
+        val xPoints = FloatArray(6)
+        val xItemX = mWidth / 12
+        Log.d(TAG, "xItem,$xItemX")
+        val xOffset = (mWidth - xItemX) / 6f + 5f
+        Log.d(TAG, "xOffset,$xOffset")
+
         val xItemY = (mYAxisFontSize + 2 * yInterval).toInt()
 
         for (i in 0..5) {
             canvas.drawText(
                 forecastLists!![i].temperature.max(),
-                (i * xInterval + xItemX + xOffset).toFloat(), xItemY - yInterval * 2f, axisPaint
+                (i * (xOffset) + xItemX), xItemY - yInterval * 2f, axisPaint
             )
 
             canvas.drawText(
                 forecastLists!![i].temperature.min(),
-                (i * xInterval + xItemX + xOffset).toFloat(), xItemY - 2f, axisPaint
+                (i * (xOffset) + xItemX), xItemY - 2f, axisPaint
             )
 
             yPointMax[i] = (xItemY - forecastLists!![i].temperature.max.toInt() - 3 * yInterval / 2)
             yPointMin[i] = (xItemY - forecastLists!![i].temperature.min.toInt() - yInterval / 2)
-            xPoints[i] =
-                ((i * xInterval + xItemX + xOffset + 20).toFloat()).toInt()
+            xPoints[i] = (i * xOffset + xItemX + 18)
 
 
         }
