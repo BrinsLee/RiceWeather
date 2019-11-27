@@ -22,6 +22,11 @@ import android.content.Context
 import android.os.Build
 import android.util.DisplayMetrics
 import android.view.WindowManager
+import com.brins.riceweather.data.model.weather.AQI
+import com.brins.riceweather.data.model.weather.Forecast
+import com.google.android.gms.common.util.JsonUtils
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Field
 
 class WeakHandler(handler: IHandler) : Handler() {
@@ -39,23 +44,30 @@ class WeakHandler(handler: IHandler) : Handler() {
         }
     }
 }
+
 //Now.more 转换器
-@TypeConverter
-fun revert(weatherInfo: String): Now.More? {
-    try {
-        val more = Now.More()
-        more.info = weatherInfo
-        return more
-    } catch (e: Exception) {
-        e.printStackTrace()
+class Converter {
+
+    @TypeConverter
+    fun revert(forecastlist: String): List<Forecast>? {
+        try {
+            val type = object : TypeToken<List<Forecast>>() {
+
+            }.type
+            return Gson().fromJson(forecastlist, type)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
     }
-    return null
+
+    @TypeConverter
+    fun convert(list: List<Forecast>): String {
+        val gson = Gson()
+        return gson.toJson(list)
+    }
 }
 
-@TypeConverter
-fun convert(more: Now.More): String {
-    return more.info
-}
 
 fun launch(block: suspend () -> Unit, error: suspend (Throwable) -> Unit) = CoroutineScope(
     Dispatchers.Main

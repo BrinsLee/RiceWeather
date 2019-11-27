@@ -2,16 +2,14 @@ package com.brins.riceweather.data.model.weather
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.NonNull
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.brins.riceweather.R
 import com.brins.riceweather.utils.map
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "weather_now")
 class Now {
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "now_id")
     @PrimaryKey(autoGenerate = true)
     @NonNull
     var mId: Int = 0
@@ -23,6 +21,7 @@ class Now {
     @ColumnInfo(name = "feel")
     var feel = ""
 
+    @Ignore
     fun feel() = "$feel°"
 
     /*
@@ -34,6 +33,7 @@ class Now {
 
 
     @SerializedName("cond")
+    @Embedded
     lateinit var more: More
 
     fun degree() = "$temperature℃"
@@ -44,7 +44,7 @@ class Now {
     @SerializedName("wind_sc")
     @ColumnInfo(name = "wind")
     var windSc = ""
-
+    @Ignore
     fun windSc() = "$windSc 级"
 
     @SerializedName("hum")
@@ -58,15 +58,22 @@ class Now {
     var condCode = ""
 
     @DrawableRes
+    @Ignore
     fun weatherDrawable(): Int {
         return if (map[condCode] == null) R.drawable.bg_sunny else map[condCode]!!
     }
 
 
     class More {
+        @ColumnInfo(name = "more_id")
+        @PrimaryKey(autoGenerate = true)
+        @NonNull
+        var mId: Int = 0
         @SerializedName("txt")
+        @ColumnInfo(name = "info")
         var info = ""
 
+        @ColumnInfo(name = "code")
         @SerializedName("code")
         var code = ""
         /*
