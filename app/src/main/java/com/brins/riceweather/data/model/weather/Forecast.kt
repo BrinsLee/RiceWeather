@@ -29,7 +29,7 @@ class Forecast {
 
     @DrawableRes
     fun weatherImages(): Int {
-        return if (weatherMap[more.info] == null) R.drawable.ic_weather_sunny else weatherMap[more.info]!!
+        return if (weatherMap[more.info] == null) R.drawable.ic_weather_sun_sunny else weatherMap[more.info]!!
     }
 
     fun date() = date.substring(5, date.length)

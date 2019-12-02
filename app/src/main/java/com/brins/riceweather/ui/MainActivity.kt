@@ -64,16 +64,16 @@ class MainActivity : BaseActivity(), TencentLocationListener {
                 }
             }
         })
-        /*if (mainViewModel.isWeatherCached()) {
-            weatherViewModel.getWeatherFromDatabase()
-        } else {
-            weatherViewModel.getWeatherData()
-        }*/
     }
 
     override fun onStart() {
         super.onStart()
-        initLocationInfo()
+//        initLocationInfo()
+        if (mainViewModel.isWeatherCached()) {
+            weatherViewModel.getWeatherFromDatabase()
+        } else {
+            weatherViewModel.getWeatherData()
+        }
     }
 
     /***初始化位置信息*/

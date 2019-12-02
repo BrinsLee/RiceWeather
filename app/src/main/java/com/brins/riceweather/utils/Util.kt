@@ -110,9 +110,9 @@ val map =
 
 val weatherMap =
     mapOf(
-        "晴" to R.drawable.ic_weather_sunny,
-        "多云" to R.drawable.ic_weather_cloundy,
-        "阴" to R.drawable.ic_weather_cloundy,
+        "晴" to R.drawable.ic_weather_sun_sunny,
+        "多云" to R.drawable.ic_weather_sun_cloudy,
+        "阴" to R.drawable.ic_weather_cloudy,
         "小雨" to R.drawable.ic_weather_rain,
         "中雨" to R.drawable.ic_weather_rain,
         "大雨" to R.drawable.ic_weather_rain,
