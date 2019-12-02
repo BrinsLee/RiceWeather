@@ -5,6 +5,7 @@ import com.brins.riceweather.data.WeatherRepository
 import com.brins.riceweather.data.database.DatabaseFactory
 import com.brins.riceweather.data.network.RiceWeatherNetwork
 import com.brins.riceweather.ui.MainModelFactory
+import com.brins.riceweather.ui.place.PlaceModelFactory
 import com.brins.riceweather.ui.weather.WeatherModelFactory
 
 
@@ -17,7 +18,7 @@ object InjectorUtil {
         RiceWeatherNetwork.getInstance()
     )
 
-//    fun getChooseAreaModelFactory() = ChooseAreaModelFactory(getPlaceRepository())
+    fun getPlaceModelFactory() = PlaceModelFactory(getPlaceRepository())
 
     fun getWeatherModelFactory() = WeatherModelFactory(getWeatherRepository())
 
