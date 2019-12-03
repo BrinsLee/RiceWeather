@@ -1,6 +1,5 @@
 package com.brins.riceweather.ui
 
-import android.Manifest
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -15,7 +14,6 @@ import com.tencent.map.geolocation.TencentLocation
 import com.tencent.map.geolocation.TencentLocationListener
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.pm.PackageManager
-import android.Manifest.permission
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.Manifest.permission.READ_PHONE_STATE
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
@@ -64,17 +62,13 @@ class MainActivity : BaseActivity(), TencentLocationListener {
                 }
             }
         })
-    }
-
-    override fun onStart() {
-        super.onStart()
-//        initLocationInfo()
         if (mainViewModel.isWeatherCached()) {
             weatherViewModel.getWeatherFromDatabase()
         } else {
-            weatherViewModel.getWeatherData()
+            initLocationInfo()
         }
     }
+
 
     /***初始化位置信息*/
     private fun initLocationInfo() {
@@ -105,12 +99,18 @@ class MainActivity : BaseActivity(), TencentLocationListener {
     }
 
     override fun onLocationChanged(p0: TencentLocation?, p1: Int, p2: String?) {
-/*        Log.d(TAG, "$p1")
+//        weatherViewModel.getWeatherData()
+        Log.d(TAG, "$p1")
         Log.d(TAG, p2)
 
         p0?.let {
             Log.d(TAG, it.address)
-        }*/
+            Log.d(TAG, it.cityCode)
+            Log.d(TAG, it.cityPhoneCode)
+            Log.d(TAG, it.district)
+            Log.d(TAG, it.district.split("区")[0])
+            weatherViewModel.getWeatherData(it.district.split("区")[0])
+        }
     }
 
     override fun onRequestPermissionsResult(

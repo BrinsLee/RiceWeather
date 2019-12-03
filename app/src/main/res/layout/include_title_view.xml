@@ -3,7 +3,7 @@
     <data>
         <variable
             name="weather"
-            type="com.brins.riceweather.data.model.weather.Weather" />
+            type="com.brins.riceweather.data.model.weather.HeWeather" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -21,7 +21,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="15dp"
-            android:text="@{weather.basic.update.time()}"
+            android:text="@{weather.time()}"
             />
 
         <TextView
@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textSize="18sp"
-            android:text="@{weather.basic.cityName}"
+            android:text="@{weather.city()}"
             />
 
         <ImageView

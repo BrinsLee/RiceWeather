@@ -2,14 +2,11 @@ package com.brins.riceweather.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.brins.riceweather.data.model.weather.AQI
-import com.brins.riceweather.data.model.weather.Basic
-import com.brins.riceweather.data.model.weather.Now
-import com.brins.riceweather.data.model.weather.Weather
+import com.brins.riceweather.data.model.weather.*
 
 @Database(
-    entities = [Weather::class, AQI::class, Basic::class, Now::class],
-    version = 1,
+    entities = [HeWeather::class],
+    version = 2,
     exportSchema = false
 )
 abstract class Database : RoomDatabase() {

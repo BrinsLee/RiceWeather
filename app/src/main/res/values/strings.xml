@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">RiceWeather</string>
     <string name="daily_view">每日概览</string>
+    <string name="air_quality">空气质量</string>
+    <string name="humidity">相对湿度</string>
+    <string name="feeling_temp">体感温度</string>
 </resources>

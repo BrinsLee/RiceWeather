@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.room.TypeConverter
 import com.brins.riceweather.R
 import com.brins.riceweather.RiceWeatherApplication
-import com.brins.riceweather.data.model.weather.Now
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,12 +21,15 @@ import android.content.Context
 import android.os.Build
 import android.util.DisplayMetrics
 import android.view.WindowManager
-import com.brins.riceweather.data.model.weather.AQI
-import com.brins.riceweather.data.model.weather.Forecast
-import com.google.android.gms.common.util.JsonUtils
+import com.brins.riceweather.data.model.weather.HourForecast
+import com.brins.riceweather.data.model.weather.Index
+import com.brins.riceweather.data.model.weather.Weather
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Field
+
+val weatherAppId = "25511893"
+val weatherAppSecret = "PvauxcX5"
 
 class WeakHandler(handler: IHandler) : Handler() {
 
@@ -49,11 +51,9 @@ class WeakHandler(handler: IHandler) : Handler() {
 class Converter {
 
     @TypeConverter
-    fun revert(forecastlist: String): List<Forecast>? {
+    fun revertWeather(forecastlist: String): List<Weather>? {
         try {
-            val type = object : TypeToken<List<Forecast>>() {
-
-            }.type
+            val type = object : TypeToken<List<Weather>>() {}.type
             return Gson().fromJson(forecastlist, type)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -62,7 +62,41 @@ class Converter {
     }
 
     @TypeConverter
-    fun convert(list: List<Forecast>): String {
+    fun convertWeather(list: List<Weather>): String {
+        val gson = Gson()
+        return gson.toJson(list)
+    }
+
+    @TypeConverter
+    fun revertHourForecast(hourForecast: String): List<HourForecast>? {
+        try {
+            val type = object : TypeToken<List<HourForecast>>() {}.type
+            return Gson().fromJson(hourForecast, type)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    @TypeConverter
+    fun convertHourForecast(list: List<HourForecast>): String {
+        val gson = Gson()
+        return gson.toJson(list)
+    }
+
+    @TypeConverter
+    fun revertIndex(index: String): List<Index>? {
+        try {
+            val type = object : TypeToken<List<Index>>() {}.type
+            return Gson().fromJson(index, type)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    @TypeConverter
+    fun converIndex(list: List<Index>): String {
         val gson = Gson()
         return gson.toJson(list)
     }
@@ -97,9 +131,15 @@ suspend fun <T> Call<T>.await(): T {
     }
 }
 
-val WEATHER_SUNNY = "100"
-val WEATHER_CLOUNDY = "101"
-val WEATHER_OVERCAST = "104"
+val WEATHER_SUNNY = "qing"
+val WEATHER_CLOUNDY = "yun"
+val WEATHER_OVERCAST = "yin"
+val WEATHER_RAIN = "yu"
+val WEATHER_FOG = "wu"
+val WEATHER_SNOW = "xue"
+val WEATHER_THUNDER = "lei"
+val WEATHER_DUST = "shachen"
+
 
 val map =
     mapOf(
@@ -110,13 +150,10 @@ val map =
 
 val weatherMap =
     mapOf(
-        "晴" to R.drawable.ic_weather_sun_sunny,
-        "多云" to R.drawable.ic_weather_sun_cloudy,
-        "阴" to R.drawable.ic_weather_cloudy,
-        "小雨" to R.drawable.ic_weather_rain,
-        "中雨" to R.drawable.ic_weather_rain,
-        "大雨" to R.drawable.ic_weather_rain,
-        "雷阵雨" to R.drawable.ic_weather_rain
+        WEATHER_SUNNY to R.drawable.ic_weather_sun_sunny,
+        WEATHER_CLOUNDY to R.drawable.ic_weather_sun_cloudy,
+        WEATHER_OVERCAST to R.drawable.ic_weather_cloudy,
+        WEATHER_RAIN to R.drawable.ic_weather_rain
     )
 
 

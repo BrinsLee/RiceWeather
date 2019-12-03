@@ -33,15 +33,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{weather.aqi.city.aqi}"
+                android:text="@{weather.airLevel}"
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/aqi"
+                android:id="@+id/air_quality"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="AQI指数"
+                android:text="@string/air_quality"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -55,15 +55,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{weather.aqi.city.pm25}"
+                android:text="@{weather.humidity}"
                 android:textSize="25sp" />
 
             <TextView
-                android:id="@+id/pm25"
+                android:id="@+id/humidity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="PM 2.5"
+                android:text="@string/humidity"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -77,7 +77,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{weather.now.feel}"
+                android:text="@{weather.windDis.get(0)}"
                 android:textSize="25sp" />
 
             <TextView
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="体感温度"
+                android:text="@{weather.windSpeed}"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>

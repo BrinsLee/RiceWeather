@@ -2,7 +2,7 @@ package com.brins.riceweather.data.database
 
 import android.content.Context
 import androidx.room.Room
-import com.brins.riceweather.data.model.weather.Weather
+import com.brins.riceweather.data.model.weather.HeWeather
 
 class DatabaseHelper(context: Context) {
     private val appDatabase = Room.databaseBuilder(
@@ -10,11 +10,11 @@ class DatabaseHelper(context: Context) {
         Database::class.java, "dbWeather"
         ).allowMainThreadQueries().build()
 
-    fun insertWeather(weather: Weather) {
+    fun insertWeather(weather: HeWeather) {
         return appDatabase.dao().addWeather(weather)
     }
 
-    fun getWeather(): Weather? {
+    fun getWeather(): HeWeather? {
         return appDatabase.dao().getWeather()
     }
 

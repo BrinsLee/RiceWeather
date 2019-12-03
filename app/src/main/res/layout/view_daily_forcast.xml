@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="weather"
-            type="com.brins.riceweather.data.model.weather.Weather" />
+            name="heWeather"
+            type="com.brins.riceweather.data.model.weather.HeWeather" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,27 +19,27 @@
 
         <include
             layout="@layout/item_daily_forecast"
-            bind:forecast="@{weather.forecastList.get(0)}" />
+            bind:forecast="@{heWeather.weather.get(1)}" />
 
         <include
             layout="@layout/item_daily_forecast"
-            bind:forecast="@{weather.forecastList.get(1)}" />
+            bind:forecast="@{heWeather.weather.get(2)}" />
 
         <include
             layout="@layout/item_daily_forecast"
-            bind:forecast="@{weather.forecastList.get(2)}" />
+            bind:forecast="@{heWeather.weather.get(3)}" />
 
         <include
             layout="@layout/item_daily_forecast"
-            bind:forecast="@{weather.forecastList.get(3)}" />
+            bind:forecast="@{heWeather.weather.get(4)}" />
 
         <include
             layout="@layout/item_daily_forecast"
-            bind:forecast="@{weather.forecastList.get(4)}" />
+            bind:forecast="@{heWeather.weather.get(5)}" />
 
         <include
             layout="@layout/item_daily_forecast"
-            bind:forecast="@{weather.forecastList.get(5)}" />
+            bind:forecast="@{heWeather.weather.get(6)}" />
 
 
     </LinearLayout>

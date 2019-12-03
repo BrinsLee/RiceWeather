@@ -7,8 +7,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import com.brins.riceweather.data.model.weather.Forecast
-import com.brins.riceweather.utils.DeviceUtils
+import com.brins.riceweather.data.model.weather.Weather
 
 class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet: AttributeSet?) :
     View(context, attributeSet) {
@@ -20,8 +19,16 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
     private val mPointRadius = 10f
     private val mYAxisFontSize = 40f
     private val mNoDataMsg = "no data"
-    var forecastLists: List<Forecast>? = null
+    var forecastLists: List<Weather>? = null
     private var TAG = this::class.java.simpleName
+    private val yPointMax = IntArray(6)
+    private val yPointMin = IntArray(6)
+    private val xPoints = FloatArray(6)
+    private val pointPaint = Paint()
+    private val linePaint = Paint()
+
+
+
 
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -72,12 +79,10 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
         axisPaint.isAntiAlias = true
         axisPaint.color = Color.parseColor("#383838")
         //y点坐标集合
-        val yPointMax = IntArray(6)
-        val yPointMin = IntArray(6)
+
         val yInterval = ((mHeight.toFloat() - mYAxisFontSize - 2f) / 2f).toInt()
 
         //x点坐标集合
-        val xPoints = FloatArray(6)
         val xItemX = mWidth / 12
         Log.d(TAG, "xItem,$xItemX")
         val xOffset = (mWidth - xItemX) / 6f + 5f
@@ -89,28 +94,26 @@ class ForecastLineView @JvmOverloads constructor(context: Context, attributeSet:
 
         for (i in 0..5) {
             canvas.drawText(
-                forecastLists!![i].temperature.max(),
+                forecastLists!![i + 1].maxTemp(),
                 (i * (xOffset) + xItemX), xItemY - yInterval * 2f, axisPaint
             )
 
             canvas.drawText(
-                forecastLists!![i].temperature.min(),
+                forecastLists!![i + 1].minTemp(),
                 (i * (xOffset) + xItemX), xItemY - 2f, axisPaint
             )
 
-            yPointMax[i] = (xItemY - forecastLists!![i].temperature.max.toInt() * 2 - 4 * yInterval / 3)
-            yPointMin[i] = (xItemY - forecastLists!![i].temperature.min.toInt() * 2 - yInterval / 2)
+            yPointMax[i] = (xItemY - forecastLists!![i + 1].maxTempInt() * 2 - 4 * yInterval / 3)
+            yPointMin[i] = (xItemY - forecastLists!![i + 1].minTempInt() * 2 - yInterval / 2)
             xPoints[i] = (i * xOffset + xItemX + 18)
 
 
         }
 
 
-        val pointPaint = Paint()
 
         pointPaint.color = mLineColor
 
-        val linePaint = Paint()
         linePaint.color = mLineColor
         linePaint.isAntiAlias = true
         //设置线条宽度

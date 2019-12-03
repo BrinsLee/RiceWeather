@@ -4,15 +4,15 @@
     <data>
 
         <import type="android.view.View" />
-        <import type="com.brins.riceweather.ui.view.ForecastLineView"/>
+
+        <import type="com.brins.riceweather.ui.view.ForecastLineView" />
 
         <variable
             name="viewModel"
             type="com.brins.riceweather.ui.weather.WeatherViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -25,8 +25,8 @@
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            bind:refreshing = "@{viewModel.isRefreshed()}"
-            bind:onRefreshListener = "@{() -> viewModel.onRefresh()}">
+            bind:onRefreshListener="@{() -> viewModel.onRefresh()}"
+            bind:refreshing="@{viewModel.isRefreshed()}">
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
@@ -36,8 +36,8 @@
                     android:id="@+id/appBar"
                     android:layout_width="match_parent"
                     android:layout_height="350dp"
-                    bind:background="@{viewModel.weather.now.weatherDrawable()}"
-                    android:fitsSystemWindows="true">
+                    android:fitsSystemWindows="true"
+                    bind:background="@{viewModel.weather.weatherDrawable()}">
 
                     <com.google.android.material.appbar.CollapsingToolbarLayout
                         android:id="@+id/collapsing_toolbar"
@@ -56,7 +56,7 @@
                             <include
                                 android:id="@+id/titleView"
                                 layout="@layout/include_title_view"
-                                bind:weather="@{viewModel.weather}" />
+                                bind:weather="@{viewModel.metaWeather}" />
                             <!--                        <ImageView
                                                         android:id="@+id/titleMenu"
                                                         android:layout_width="0dp"
@@ -88,8 +88,8 @@
                     android:id="@+id/nested"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fillViewport="true"
                     android:background="@color/white_90"
+                    android:fillViewport="true"
                     app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
                     <LinearLayout
@@ -108,29 +108,30 @@
 
                         <include
                             layout="@layout/item_title_view"
-                            bind:title = "@{@string/daily_view}"/>
+                            bind:title="@{@string/daily_view}" />
 
                         <com.brins.riceweather.ui.view.RoundConstraintLayout
-                            android:background="@color/bg_main"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
-                            android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp"
-                            app:round_corner="20dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@color/bg_main"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            app:round_corner="20dp">
+
                             <include
                                 android:id="@+id/tvDate"
                                 layout="@layout/view_daily_forcast"
-                                bind:weather="@{viewModel.weather}" />
+                                bind:heWeather="@{viewModel.metaWeather}" />
 
                             <com.brins.riceweather.ui.view.ForecastLineView
                                 android:layout_width="match_parent"
                                 android:layout_height="150dp"
-                                app:layout_constraintTop_toBottomOf="@id/tvDate"
                                 android:layout_marginTop="10dp"
-                                bind:forecastData="@{viewModel.weather.forecastList}">
+                                app:layout_constraintTop_toBottomOf="@id/tvDate"
+                                bind:forecastData="@{viewModel.metaWeather.weather}">
 
                             </com.brins.riceweather.ui.view.ForecastLineView>
 

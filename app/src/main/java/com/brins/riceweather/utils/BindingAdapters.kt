@@ -3,6 +3,7 @@ package com.brins.riceweather.utils
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -17,9 +18,14 @@ fun ImageView.loadBingPic(url: String?) {
 }
 
 @BindingAdapter("bind:weatherDrawable")
-fun ImageView.loadWeatherIcon(forecast: Forecast?) {
+fun ImageView.loadWeatherIcon(forecast: Weather?) {
     if (forecast != null) setImageResource(forecast.weatherImages())
 
+}
+
+@BindingAdapter("bind:weatherIcon")
+fun ImageView.loadWeatherIcon(@ColorRes drawable : Int) {
+    setImageResource(drawable)
 }
 
 @BindingAdapter("bind:colorSchemeResources")
@@ -29,16 +35,16 @@ fun SwipeRefreshLayout.colorSchemeResources(resId: Int) {
 
 @BindingAdapter("bind:showMax")
 fun TextView.showMax(weather: Weather?) = weather?.let {
-    text = "${it.forecastList[0].temperature.max}°"
+    text = "${it.maxTemp}°"
 }
 
 @BindingAdapter("bind:showMin")
 fun TextView.showMin(weather: Weather?) = weather?.let {
-    text = "${it.forecastList[0].temperature.min}°"
+    text = "${it.minTemp}°"
 }
 
 @BindingAdapter("bind:forecastData")
-fun ForecastLineView.forecastData(forecastList: List<Forecast>?) = forecastList?.let {
+fun ForecastLineView.forecastData(forecastList: List<Weather>?) = forecastList?.let {
     forecastLists = forecastList
     invalidate()
 }

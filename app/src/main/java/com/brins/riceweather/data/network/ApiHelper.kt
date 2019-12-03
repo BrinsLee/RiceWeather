@@ -5,7 +5,8 @@ import com.brins.riceweather.data.network.api.WeatherService
 
 object ApiHelper {
 
-    private const val BASE_URL = "http://guolin.tech/"
+    //    private const val BASE_URL = "http://guolin.tech/"
+    private const val BASE_URL = "https://www.tianqiapi.com/"
     private var mPlaceService: PlaceService? = null
     private var mWeatherService: WeatherService? = null
 

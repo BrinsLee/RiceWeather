@@ -6,20 +6,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.brins.riceweather.RiceWeatherApplication
 import com.brins.riceweather.data.WeatherRepository
+import com.brins.riceweather.data.model.weather.HeWeather
 import com.brins.riceweather.data.model.weather.Weather
 import kotlinx.coroutines.launch
 
 class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() {
 
+    var metaWeather = MutableLiveData<HeWeather>()
     var weather = MutableLiveData<Weather>()
     var isRefreshed = MutableLiveData<Boolean>()
-    var weatherId = "CN101280101"
+    var weatherId = ""
 
     /***网络请求天气数据*/
-    fun getWeatherData() {
+    fun getWeatherData(location : String) {
+        weatherId = location
         isRefreshed.value = true
         launch({
-            weather.value = repository.getWeather(weatherId)
+            val data = repository.getWeather(weatherId)
+            metaWeather.value = data
+            weather.value = data.weather?.get(0)
             isRefreshed.value = false
         }, {
             Toast.makeText(RiceWeatherApplication.context, it.message, Toast.LENGTH_SHORT).show()
@@ -28,12 +33,15 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
     }
 
     fun onRefresh() {
-        getWeatherData()
+        getWeatherData(weatherId)
     }
     /***数据库获取天气数据*/
     fun getWeatherFromDatabase() {
         launch({
-            weather.value = repository.getWeather()
+            val data = repository.getWeather()
+            metaWeather.value = data
+            weather.value = data.weather?.get(0)
+            weatherId = data.city
         }, {
             Toast.makeText(RiceWeatherApplication.context, it.message, Toast.LENGTH_SHORT).show()
         })

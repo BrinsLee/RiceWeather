@@ -1,6 +1,7 @@
 package com.brins.riceweather.data
 
 import com.brins.riceweather.data.database.DatabaseHelper
+import com.brins.riceweather.data.model.weather.HeWeather
 import com.brins.riceweather.data.model.weather.Weather
 import com.brins.riceweather.data.network.RiceWeatherNetwork
 import kotlinx.coroutines.Dispatchers
@@ -26,19 +27,18 @@ class WeatherRepository private constructor(
     }
 
     /***网络获取天气数据*/
-    suspend fun getWeather(weatherId: String): Weather {
+    suspend fun getWeather(weatherId: String): HeWeather {
         val weather = requestWeather(weatherId)
         return weather
     }
 
-    private suspend fun requestWeather(weatherId: String) = withContext(Dispatchers.IO) {
-        val heWeather = network.fetchWeather(weatherId)
-        val weather = heWeather.weather!![0]
-        weatherDao.insertWeather(weather)
-        weather
+    private suspend fun requestWeather(location: String) = withContext(Dispatchers.IO) {
+        val heWeather = network.fetchWeather(location)
+        weatherDao.insertWeather(heWeather)
+        heWeather
     }
     /***获取缓存在数据库的天气*/
-    suspend fun getWeather() : Weather {
+    suspend fun getWeather() : HeWeather {
         val weather = requestWeather()
         return weather!!
     }

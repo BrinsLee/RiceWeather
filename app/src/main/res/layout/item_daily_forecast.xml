@@ -5,7 +5,7 @@
 
         <variable
             name="forecast"
-            type="com.brins.riceweather.data.model.weather.Forecast" />
+            type="com.brins.riceweather.data.model.weather.Weather" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,7 +20,7 @@
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{forecast.date()}"
+            android:text="@{forecast.week()}"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
 

@@ -22,6 +22,6 @@ class RiceWeatherNetwork {
     private val placeService = ApiHelper.getPlaceService()
     private val weatherService = ApiHelper.getWeatherService()
 
-    suspend fun fetchWeather(weatherId: String) = weatherService.getWeather(weatherId).await()
+    suspend fun fetchWeather(location: String) = weatherService.getWeather(city = location).await()
 
 }
