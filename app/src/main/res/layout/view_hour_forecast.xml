@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="weather"
+            type="com.brins.riceweather.data.model.weather.Weather" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <include
+            layout="@layout/item_hour_forecast"
+            bind:hour="@{weather.hourForecast.get(0)}" />
+
+        <include
+            layout="@layout/item_hour_forecast"
+            bind:hour="@{weather.hourForecast.get(1)}" />
+
+        <include
+            layout="@layout/item_hour_forecast"
+            bind:hour="@{weather.hourForecast.get(2)}" />
+
+        <include
+            layout="@layout/item_hour_forecast"
+            bind:hour="@{weather.hourForecast.get(3)}" />
+
+        <include
+            layout="@layout/item_hour_forecast"
+            bind:hour="@{weather.hourForecast.get(4)}" />
+
+        <include
+            layout="@layout/item_hour_forecast"
+            bind:hour="@{weather.hourForecast.get(5)}" />
+
+<!--        <include
+            layout="@layout/item_hour_forecast"
+            bind:hour="@{weather.hourForecast.get(6)}" />
+
+        <include
+            layout="@layout/item_hour_forecast"
+            bind:hour="@{weather.hourForecast.get(7)}" />-->
+
+    </LinearLayout>
+</layout>

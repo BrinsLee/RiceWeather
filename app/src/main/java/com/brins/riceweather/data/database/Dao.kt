@@ -3,9 +3,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.brins.riceweather.data.model.weather.HeWeather
-import com.brins.riceweather.data.model.weather.Now
-import com.brins.riceweather.data.model.weather.Weather
-import io.reactivex.Single
 
 @Dao
 interface Dao {

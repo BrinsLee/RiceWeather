@@ -7,9 +7,10 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.brins.riceweather.data.model.weather.Forecast
+import com.brins.riceweather.data.model.weather.HourForecast
 import com.brins.riceweather.data.model.weather.Weather
 import com.brins.riceweather.ui.view.ForecastLineView
+import com.brins.riceweather.ui.view.HourForecastLineView
 import com.bumptech.glide.Glide
 
 @BindingAdapter("bind:loadBingPic")
@@ -20,6 +21,12 @@ fun ImageView.loadBingPic(url: String?) {
 @BindingAdapter("bind:weatherDrawable")
 fun ImageView.loadWeatherIcon(forecast: Weather?) {
     if (forecast != null) setImageResource(forecast.weatherImages())
+
+}
+
+@BindingAdapter("bind:weatherDrawable")
+fun ImageView.loadWeatherIcon(hourForecast: HourForecast?) {
+    if (hourForecast != null) setImageResource(hourForecast.weatherImages())
 
 }
 
@@ -45,6 +52,12 @@ fun TextView.showMin(weather: Weather?) = weather?.let {
 
 @BindingAdapter("bind:forecastData")
 fun ForecastLineView.forecastData(forecastList: List<Weather>?) = forecastList?.let {
+    forecastLists = forecastList
+    invalidate()
+}
+
+@BindingAdapter("bind:forecastData")
+fun HourForecastLineView.forecastData(forecastList: List<HourForecast>?) = forecastList?.let {
     forecastLists = forecastList
     invalidate()
 }
