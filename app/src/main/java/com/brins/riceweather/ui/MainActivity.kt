@@ -105,12 +105,12 @@ class MainActivity : BaseActivity(), TencentLocationListener {
     }
 
     override fun onLocationChanged(p0: TencentLocation?, p1: Int, p2: String?) {
-        Log.d(TAG, "$p1")
+/*        Log.d(TAG, "$p1")
         Log.d(TAG, p2)
 
         p0?.let {
             Log.d(TAG, it.address)
-        }
+        }*/
     }
 
     override fun onRequestPermissionsResult(
