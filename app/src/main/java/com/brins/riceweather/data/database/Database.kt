@@ -5,8 +5,8 @@ import androidx.room.RoomDatabase
 import com.brins.riceweather.data.model.weather.*
 
 @Database(
-    entities = [HeWeather::class],
-    version = 2,
+    entities = [HeWeather::class , WeatherDetail::class],
+    version = 3,
     exportSchema = false
 )
 abstract class Database : RoomDatabase() {

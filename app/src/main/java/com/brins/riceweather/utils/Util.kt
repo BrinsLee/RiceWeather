@@ -27,6 +27,9 @@ import com.brins.riceweather.data.model.weather.Weather
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Field
+import android.content.SharedPreferences
+import java.lang.ref.SoftReference
+import java.util.*
 
 val weatherAppId = "25511893"
 val weatherAppSecret = "PvauxcX5"
@@ -131,6 +134,9 @@ suspend fun <T> Call<T>.await(): T {
     }
 }
 
+val FILE_COMMON = "file_common"
+val KEY_TIME = "key_time"
+
 val WEATHER_SUNNY = "qing"
 val WEATHER_CLOUNDY = "yun"
 val WEATHER_OVERCAST = "yin"
@@ -150,7 +156,7 @@ val map =
 
 val weatherMap =
     mapOf(
-        WEATHER_SUNNY  to R.drawable.ic_weather_sun_sunny,
+        WEATHER_SUNNY to R.drawable.ic_weather_sun_sunny,
         WEATHER_CLOUNDY to R.drawable.ic_weather_sun_cloudy,
         WEATHER_OVERCAST to R.drawable.ic_weather_cloudy,
         WEATHER_RAIN to R.drawable.ic_weather_rain,
@@ -158,7 +164,7 @@ val weatherMap =
         "多云" to R.drawable.ic_weather_sun_cloudy,
         "阴" to R.drawable.ic_weather_cloudy,
         "雨" to R.drawable.ic_weather_rain
-        )
+    )
 
 
 /**
@@ -411,4 +417,180 @@ object DeviceUtils {
         return statusBarHeight
     }
 
+}
+
+
+class SpUtils private constructor(
+    /*    public static SharedPreferences getSharedPreferences(String spName) {
+        return BaseApplication.getInstance().getSharedPreferences(spName, Context.MODE_MULTI_PROCESS);
+    }*/
+
+    val sharedPreferences: SharedPreferences
+) {
+
+    val editor: SharedPreferences.Editor
+        get() = sharedPreferences.edit()
+
+    /**
+     * 原子操作的高效率异步提交
+     */
+    fun save(key: String, value: Boolean) {
+        editor.putBoolean(key, value).apply()
+    }
+
+    /**
+     * 带返回结果的同步提交
+     */
+    fun saveASyn(key: String, value: Boolean): Boolean {
+        return editor.putBoolean(key, value).commit()
+    }
+
+    fun save(key: String, value: Int) {
+        editor.putInt(key, value).apply()
+    }
+
+    fun saveASyn(key: String, value: Int): Boolean {
+        return editor.putInt(key, value).commit()
+    }
+
+    fun save(key: String, value: Long) {
+        editor.putLong(key, value).apply()
+    }
+
+    fun saveASyn(key: String, value: Long): Boolean {
+        return editor.putLong(key, value).commit()
+    }
+
+    fun save(key: String, value: String) {
+        editor.putString(key, value).apply()
+    }
+
+    fun saveASyn(key: String, value: String): Boolean {
+        return editor.putString(key, value).commit()
+    }
+
+    fun save(key: String, value: Float) {
+        editor.putFloat(key, value).apply()
+    }
+
+    fun saveASyn(key: String, value: Float): Boolean {
+        return editor.putFloat(key, value).commit()
+    }
+
+    fun remove(vararg keys: String) {
+        if (null != keys && keys.size > 0) {
+            val editor = editor
+            for (key in keys) {
+                editor.remove(key)
+            }
+            editor.apply()
+        }
+    }
+
+    fun clear() {
+        editor.clear().commit()
+    }
+
+    fun removeASyn(vararg keys: String) {
+        if (null != keys && keys.size > 0) {
+            val editor = editor
+            for (key in keys) {
+                editor.remove(key)
+            }
+            editor.commit()
+        }
+    }
+
+    fun getString(key: String): String? {
+        return sharedPreferences.getString(key, null)
+    }
+
+    fun getString(key: String, defaultValue: String): String? {
+        return sharedPreferences.getString(key, defaultValue)
+    }
+
+    fun getBoolean(key: String): Boolean {
+        return sharedPreferences.getBoolean(key, false)
+    }
+
+    fun getBoolean(key: String, defaultValue: Boolean): Boolean {
+        return sharedPreferences.getBoolean(key, defaultValue)
+    }
+
+    fun getInt(key: String): Int {
+        return sharedPreferences.getInt(key, -1)
+    }
+
+    fun getInt(key: String, defaultValue: Int): Int {
+        return sharedPreferences.getInt(key, defaultValue)
+    }
+
+    fun increase(key: String) {
+        var count = getInt(key, 0)
+        save(key, ++count)
+    }
+
+    fun getLong(key: String): Long {
+        return sharedPreferences.getLong(key, -1L)
+    }
+
+    fun getLong(key: String, defaultValue: Long): Long {
+        return sharedPreferences.getLong(key, defaultValue)
+    }
+
+    fun getFloat(key: String): Float {
+        return sharedPreferences.getFloat(key, -1f)
+    }
+
+    companion object {
+
+        private val sMap = HashMap<String, SoftReference<SharedPreferences>>()
+
+        /**
+         * 获取SpUtils对象
+         *
+         * @param spName
+         * @return
+         */
+        fun obtain(spName: String, context: Context): SpUtils {
+            var sharedPreferences: SharedPreferences? = null
+            if (sMap.containsKey(spName)) {
+                val softReference = sMap[spName]
+                sharedPreferences = softReference!!.get()
+            }
+
+            if (null == sharedPreferences) {
+                sharedPreferences = context.getSharedPreferences(spName, Context.MODE_PRIVATE)
+                sMap[spName] = SoftReference(sharedPreferences)
+            }
+            return SpUtils(sharedPreferences!!)
+        }
+    }
+}
+
+fun isThreeHour(time1: Long, time2: Long): Boolean {
+    return time2 - time1 >= 10800000
+}
+
+
+
+fun isSameDay(time1: Long, time2: Long): Boolean {
+    val date1 = Calendar.getInstance()
+    date1.timeInMillis = time1
+    val date2 = Calendar.getInstance()
+    date2.timeInMillis = time2
+    return isSameDay(date1, date2)
+}
+
+fun isSameDay(date1: Calendar?, date2: Calendar?): Boolean {
+    if (date1 == null || date2 == null) {
+        return false
+    }
+    val year1 = date1.get(Calendar.YEAR)
+    val day1 = date1.get(Calendar.DAY_OF_YEAR)
+
+    val year2 = date2.get(Calendar.YEAR)
+    val day2 = date2.get(Calendar.DAY_OF_YEAR)
+
+    return year1 == year2 && day1 == day2
 }

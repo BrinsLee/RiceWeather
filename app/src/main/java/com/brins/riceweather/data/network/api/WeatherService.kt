@@ -1,6 +1,7 @@
 package com.brins.riceweather.data.network.api
 
 import com.brins.riceweather.data.model.weather.HeWeather
+import com.brins.riceweather.data.model.weather.WeatherDetail
 import com.brins.riceweather.utils.weatherAppId
 import com.brins.riceweather.utils.weatherAppSecret
 import retrofit2.Call
@@ -14,4 +15,10 @@ interface WeatherService {
                    @Query("version") version: String = "v1",
                    @Query("city") city: String): Call<HeWeather>
 
+
+    @GET("api/")
+    fun getWeatherDetail(@Query("appid") appId: String = weatherAppId,
+                         @Query("appsecret") appSecret: String = weatherAppSecret,
+                         @Query("version") version: String = "v6",
+                         @Query("city") city: String): Call<WeatherDetail>
 }

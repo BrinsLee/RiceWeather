@@ -95,6 +95,7 @@ class MainActivity : BaseActivity(), TencentLocationListener {
             })
         if (mainViewModel.isWeatherCached()) {
             weatherViewModel.getWeatherFromDatabase()
+            weatherViewModel.getWeatherDetailDromDatabase()
         } else {
             initLocationInfo()
         }
@@ -141,6 +142,7 @@ class MainActivity : BaseActivity(), TencentLocationListener {
             Log.d(TAG, it.district)
             Log.d(TAG, it.district.split("区")[0])
             weatherViewModel.getWeatherData(it.district.split("区")[0])
+
         }
     }
 

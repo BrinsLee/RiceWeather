@@ -9,8 +9,11 @@ import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.brins.riceweather.data.model.weather.HourForecast
 import com.brins.riceweather.data.model.weather.Weather
+import com.brins.riceweather.data.model.weather.WeatherDetail
+import com.brins.riceweather.ui.view.CircleProgressView
 import com.brins.riceweather.ui.view.ForecastLineView
 import com.brins.riceweather.ui.view.HourForecastLineView
+import com.brins.riceweather.ui.view.LineProgressView
 import com.bumptech.glide.Glide
 
 @BindingAdapter("bind:loadBingPic")
@@ -65,4 +68,14 @@ fun HourForecastLineView.forecastData(forecastList: List<HourForecast>?) = forec
 @BindingAdapter("bind:background")
 fun ViewGroup.setWeatherBackground(@DrawableRes background: Int) {
     setBackgroundResource(background)
+}
+
+@BindingAdapter("bind:step")
+fun CircleProgressView.updateStep(weatherDetail : WeatherDetail?) = weatherDetail?.let{
+    mStep = weatherDetail.air.toInt()
+}
+
+@BindingAdapter("bind:progress")
+fun LineProgressView.updateProgress(progress : Float) = progress.let{
+    mPro = progress * 1.5f
 }

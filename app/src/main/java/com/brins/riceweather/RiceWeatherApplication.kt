@@ -3,8 +3,9 @@ package com.brins.riceweather
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import androidx.multidex.MultiDexApplication
 
-class RiceWeatherApplication :Application() {
+class RiceWeatherApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

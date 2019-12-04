@@ -3,6 +3,7 @@ package com.brins.riceweather.data
 import com.brins.riceweather.data.database.DatabaseHelper
 import com.brins.riceweather.data.model.weather.HeWeather
 import com.brins.riceweather.data.model.weather.Weather
+import com.brins.riceweather.data.model.weather.WeatherDetail
 import com.brins.riceweather.data.network.RiceWeatherNetwork
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -32,6 +33,7 @@ class WeatherRepository private constructor(
         return weather
     }
 
+    /***拉取天气信息*/
     private suspend fun requestWeather(location: String) = withContext(Dispatchers.IO) {
         val heWeather = network.fetchWeather(location)
         heWeather.weather?.let {
@@ -44,6 +46,7 @@ class WeatherRepository private constructor(
         weatherDao.insertWeather(heWeather)
         heWeather
     }
+
     /***获取缓存在数据库的天气*/
     suspend fun getWeather() : HeWeather {
         val weather = requestWeather()
@@ -60,4 +63,30 @@ class WeatherRepository private constructor(
     fun isWeatherCached(): Boolean {
         return weatherDao.getWeather() != null
     }
+
+
+
+    suspend fun getWeatherDetail(): WeatherDetail{
+        val weatherDetail = requestWeatherDetail()
+        return weatherDetail!!
+    }
+
+    private suspend fun requestWeatherDetail() = withContext(Dispatchers.IO){
+        val weatherDetail = weatherDao.getWeatherDetail()
+        weatherDetail
+    }
+
+    /***网络获取天气详情数据*/
+    suspend fun getWeatherDetail(weatherId: String): WeatherDetail {
+        val weather = requestWeatherDetail(weatherId)
+        return weather
+    }
+
+    /***拉取天气详情信息*/
+    private suspend fun requestWeatherDetail(location: String) = withContext(Dispatchers.IO) {
+        val weatherDetail = network.fetchWeatherDetail(location)
+        weatherDao.insertWeatherDetail(weatherDetail)
+        weatherDetail
+    }
+
 }

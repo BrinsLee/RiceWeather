@@ -7,6 +7,19 @@
     <color name="translate">#4DFFFFFF</color>
     <color name="textcolor">#F7B202</color>
 
+    <color name="defaultStartColor">#89f7fe</color>
+
+    <color name="defaultEndColor">#66a6ff</color>
+
+    <color name="startColorRed">#ff9a9e</color>
+    <color name="endColorRed">#fad0c4</color>
+
+    <color name="startColorGreen">#abecd6</color>
+    <color name="endColorGreen">#fbed96</color>
+
+    <color name="startColorPink">#d299c2</color>
+    <color name="endColorPink">#fef9d7</color>
+
     <color name="bg_main">#EEEEEE</color>
     <color name="white">#ffffff</color>
     <color name="white_10">#1AFFFFFF</color>

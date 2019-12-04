@@ -3,6 +3,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.brins.riceweather.data.model.weather.HeWeather
+import com.brins.riceweather.data.model.weather.WeatherDetail
 
 @Dao
 interface Dao {
@@ -14,4 +15,10 @@ interface Dao {
 
     @Query("delete from metadata where DataId=:id")
     fun deleteWeather(id : Int)
+
+    @Insert
+    fun addWeatherDetail(weatherDetail: WeatherDetail)
+
+    @Query("select * from weatherDetail order by ID DESC")
+    fun getWeatherDetail(): WeatherDetail
 }

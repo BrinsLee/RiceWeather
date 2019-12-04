@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="weatherDetail"
+            type="com.brins.riceweather.data.model.weather.WeatherDetail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.brins.riceweather.ui.view.CircleProgressView
+            android:id="@+id/circle_progress"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="10dp"
+            bind:step = "@{weatherDetail}"
+            android:layout_marginLeft="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="@id/circle_progress"
+            app:layout_constraintEnd_toEndOf="@id/circle_progress"
+            app:layout_constraintBottom_toBottomOf="@id/circle_progress"
+            android:textColor="@android:color/black"
+            android:text="@{weatherDetail.air}"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/circle_progress"
+            app:layout_constraintEnd_toEndOf="@id/circle_progress"
+            app:layout_constraintTop_toBottomOf="@id/circle_progress"
+            android:textColor="@android:color/darker_gray"
+            android:text="@{@string/air_quality + weatherDetail.level}"
+            />
+
+        <TextView
+            android:id="@+id/pm25_title"
+            android:text="PM2.5"
+            android:textColor="#7C7C7C"
+            app:layout_constraintBottom_toTopOf="@id/linePm25"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/linePm25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/pm25_unit"
+            android:text="@{weatherDetail.pm25}"
+            android:drawableRight="@drawable/ic_code_unit"
+            app:layout_constraintBottom_toTopOf="@id/linePm25"
+            android:textSize="12sp"
+            android:textColor="#7C7C7C"
+            app:layout_constraintEnd_toEndOf="@id/linePm25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_code_unit" />
+        <com.brins.riceweather.ui.view.LineProgressView
+            android:id="@+id/linePm25"
+            android:layout_width="150dp"
+            android:layout_height="5dp"
+            app:layout_constraintTop_toTopOf="@id/circle_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            bind:progress="@{weatherDetail.pm25()}"/>
+
+        <TextView
+            android:id="@+id/km_title"
+            android:text="@{weatherDetail.win}"
+            android:textColor="#7C7C7C"
+            app:layout_constraintTop_toBottomOf="@id/linePm25"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/linePm25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/km_unit"
+            android:text="@{weatherDetail.windMeter}"
+            app:layout_constraintBaseline_toBaselineOf="@id/km_title"
+            android:textSize="12sp"
+            android:textColor="#7C7C7C"
+            app:layout_constraintEnd_toEndOf="@id/lineWind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <com.brins.riceweather.ui.view.LineProgressView
+            android:id="@+id/lineWind"
+            android:layout_width="150dp"
+            android:layout_height="5dp"
+            app:layout_constraintTop_toBottomOf="@id/km_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:start_color="@color/startColorRed"
+            app:end_color="@color/endColorRed"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            bind:progress="@{weatherDetail.windMeter()}"/>
+
+
+        <TextView
+            android:id="@+id/humidity_title"
+            android:text="@string/humidity"
+            android:textColor="#7C7C7C"
+            app:layout_constraintTop_toBottomOf="@id/lineWind"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/lineHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/humidity_unit"
+            android:text="@{weatherDetail.humidity}"
+            app:layout_constraintBaseline_toBaselineOf="@id/humidity_title"
+            android:textSize="12sp"
+            android:textColor="#7C7C7C"
+            app:layout_constraintEnd_toEndOf="@id/lineHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <com.brins.riceweather.ui.view.LineProgressView
+            android:id="@+id/lineHumidity"
+            android:layout_width="150dp"
+            android:layout_height="5dp"
+            app:layout_constraintTop_toBottomOf="@id/humidity_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:start_color="@color/startColorGreen"
+            app:end_color="@color/endColorGreen"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            bind:progress="@{weatherDetail.humidity()}"/>
+
+        <TextView
+            android:id="@+id/press_title"
+            android:text="@string/press"
+            android:textColor="#7C7C7C"
+            app:layout_constraintTop_toBottomOf="@id/lineHumidity"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/linePress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/press_unit"
+            android:text="@{weatherDetail.pressure + @string/hpa}"
+            app:layout_constraintBaseline_toBaselineOf="@id/press_title"
+            android:textSize="12sp"
+            android:textColor="#7C7C7C"
+            app:layout_constraintEnd_toEndOf="@id/linePress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <com.brins.riceweather.ui.view.LineProgressView
+            android:id="@+id/linePress"
+            android:layout_width="150dp"
+            android:layout_height="5dp"
+            app:layout_constraintTop_toBottomOf="@id/press_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:start_color="@color/startColorPink"
+            app:end_color="@color/endColorPink"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            bind:progress="@{weatherDetail.pressure()}"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

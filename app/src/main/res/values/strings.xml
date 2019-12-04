@@ -2,8 +2,11 @@
     <string name="app_name">RiceWeather</string>
     <string name="daily_view">每日概览</string>
     <string name="hour_view">每时概览</string>
+    <string name="daily_detail">每日详情</string>
     <string name="daily_tip">每日小贴士</string>
     <string name="air_quality">空气质量</string>
-    <string name="humidity">相对湿度</string>
     <string name="feeling_temp">体感温度</string>
+    <string name="humidity">相对湿度</string>
+    <string name="press">大气压</string>
+    <string name="hpa">hpa</string>
 </resources>

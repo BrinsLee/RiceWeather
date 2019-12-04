@@ -3,6 +3,7 @@ package com.brins.riceweather.data.database
 import android.content.Context
 import androidx.room.Room
 import com.brins.riceweather.data.model.weather.HeWeather
+import com.brins.riceweather.data.model.weather.WeatherDetail
 
 class DatabaseHelper(context: Context) {
     private val appDatabase = Room.databaseBuilder(
@@ -20,6 +21,14 @@ class DatabaseHelper(context: Context) {
 
     fun deleteWeather(id: Int) {
         return appDatabase.dao().deleteWeather(id)
+    }
+
+    fun insertWeatherDetail(weatherDetail: WeatherDetail) {
+        return appDatabase.dao().addWeatherDetail(weatherDetail)
+    }
+
+    fun getWeatherDetail(): WeatherDetail? {
+        return appDatabase.dao().getWeatherDetail()
     }
 
 }

@@ -24,4 +24,6 @@ class RiceWeatherNetwork {
 
     suspend fun fetchWeather(location: String) = weatherService.getWeather(city = location).await()
 
+    suspend fun fetchWeatherDetail(location: String) = weatherService.getWeatherDetail(city = location).await()
+
 }
