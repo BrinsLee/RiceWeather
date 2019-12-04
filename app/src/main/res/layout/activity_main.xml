@@ -175,7 +175,7 @@
 
                         <com.brins.riceweather.ui.view.RoundConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="20dp"
@@ -188,6 +188,10 @@
                             <androidx.recyclerview.widget.RecyclerView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:id="@+id/recycler" />
                         </com.brins.riceweather.ui.view.RoundConstraintLayout>
 

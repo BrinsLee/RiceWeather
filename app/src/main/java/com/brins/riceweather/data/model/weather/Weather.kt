@@ -91,7 +91,7 @@ class Weather {
 
     @SerializedName("hours")
     @ColumnInfo(name = "hourForecast")
-    lateinit var hourForecast: List<HourForecast>
+    lateinit var hourForecast: MutableList<HourForecast>
 
     @SerializedName("index")
     @ColumnInfo(name = "index")

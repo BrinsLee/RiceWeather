@@ -34,6 +34,13 @@ class WeatherRepository private constructor(
 
     private suspend fun requestWeather(location: String) = withContext(Dispatchers.IO) {
         val heWeather = network.fetchWeather(location)
+        heWeather.weather?.let {
+            if (it[0].hourForecast.size < 8) {
+                for (i in 0..2) {
+                    it[0].hourForecast.add(heWeather.weather!![1].hourForecast[i])
+                }
+            }
+        }
         weatherDao.insertWeather(heWeather)
         heWeather
     }

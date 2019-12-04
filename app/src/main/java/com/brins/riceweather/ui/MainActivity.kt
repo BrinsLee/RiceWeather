@@ -19,6 +19,15 @@ import android.Manifest.permission.READ_PHONE_STATE
 import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import android.os.Build
 import android.util.Log
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.databinding.Observable
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.brins.riceweather.data.model.weather.Index
+import com.brins.riceweather.ui.adapter.CommonViewAdapter
+import com.brins.riceweather.ui.adapter.ViewHolder
 
 
 class MainActivity : BaseActivity(), TencentLocationListener {
@@ -50,6 +59,9 @@ class MainActivity : BaseActivity(), TencentLocationListener {
         )
     }
 
+    private lateinit var mAdapter: CommonViewAdapter<Index>
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.viewModel = weatherViewModel
@@ -62,6 +74,25 @@ class MainActivity : BaseActivity(), TencentLocationListener {
                 }
             }
         })
+        weatherViewModel.index.observe(this@MainActivity,
+            Observer<List<Index>> {
+                mAdapter = object : CommonViewAdapter<Index>(
+                    this@MainActivity,
+                    R.layout.item_daily_index,
+                    it as ArrayList<Index>
+                ){
+                    override fun converted(holder: ViewHolder, t: Index, position: Int) {
+                        holder.getView<TextView>(R.id.title).text = it[position].title
+                        holder.getView<TextView>(R.id.level).text = it[position].level
+                        holder.getView<TextView>(R.id.desc).text = it[position].desc
+
+                    }
+
+                }
+                recycler.adapter = mAdapter
+                recycler.layoutManager = LinearLayoutManager(this)
+                recycler.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
+            })
         if (mainViewModel.isWeatherCached()) {
             weatherViewModel.getWeatherFromDatabase()
         } else {
