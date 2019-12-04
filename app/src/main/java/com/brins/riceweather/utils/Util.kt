@@ -28,6 +28,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Field
 import android.content.SharedPreferences
+import org.greenrobot.eventbus.EventBus
 import java.lang.ref.SoftReference
 import java.util.*
 
@@ -594,3 +595,54 @@ fun isSameDay(date1: Calendar?, date2: Calendar?): Boolean {
 
     return year1 == year2 && day1 == day2
 }
+
+/**
+ * 注册 EventBus
+ */
+fun register(subscriber: Any) {
+    val eventBus = EventBus.getDefault()
+    if (!eventBus.isRegistered(subscriber)) {
+        eventBus.register(subscriber)
+    }
+}
+
+/**
+ * 解除注册 EventBus
+ */
+fun unregister(subscriber: Any) {
+    val eventBus = EventBus.getDefault()
+    if (eventBus.isRegistered(subscriber)) {
+        eventBus.unregister(subscriber)
+    }
+}
+
+
+/**
+ * 发送事件消息
+ */
+fun post(event: EventMsg<*>) {
+    EventBus.getDefault().post(event)
+}
+
+/**
+ * 发送粘性事件消息
+ */
+fun postSticky(event: EventMsg<*>) {
+    EventBus.getDefault().postSticky(event)
+}
+
+class EventMsg<T> {
+    var code: Int = 0
+    var data: T? = null
+
+    constructor(code: Int) {
+        this.code = code
+    }
+
+    constructor(code: Int, data: T) {
+        this.code = code
+        this.data = data
+    }
+}
+
+val CODE_INIT_LOCATION = 999

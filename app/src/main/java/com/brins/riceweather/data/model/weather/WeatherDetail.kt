@@ -30,6 +30,9 @@ class WeatherDetail {
 
     @Ignore
     fun windMeter(): Int {
+        if (windMeter.isEmpty()){
+            return 0
+        }
         val pattern = Pattern.compile("[^0-9]")
         val m = pattern.matcher(windMeter)
         return m.replaceAll("").trim().toInt()

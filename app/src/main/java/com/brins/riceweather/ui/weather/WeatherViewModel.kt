@@ -25,6 +25,11 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
 
     /***网络请求天气数据*/
     fun getWeatherData(location: String) {
+        if (location.isEmpty()){
+            post(EventMsg<Any>(CODE_INIT_LOCATION))
+            isRefreshed.value = false
+            return
+        }
         weatherId = location
         isRefreshed.value = true
         launch({

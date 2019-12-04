@@ -8,7 +8,6 @@ import com.brins.riceweather.R
 import com.brins.riceweather.databinding.ActivityMainBinding
 import com.brins.riceweather.ui.place.PlaceViewModel
 import com.brins.riceweather.ui.weather.WeatherViewModel
-import com.brins.riceweather.utils.InjectorUtil
 import com.google.android.material.appbar.AppBarLayout
 import com.tencent.map.geolocation.TencentLocation
 import com.tencent.map.geolocation.TencentLocationListener
@@ -28,6 +27,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.brins.riceweather.data.model.weather.Index
 import com.brins.riceweather.ui.adapter.CommonViewAdapter
 import com.brins.riceweather.ui.adapter.ViewHolder
+import com.brins.riceweather.utils.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class MainActivity : BaseActivity(), TencentLocationListener {
@@ -64,6 +66,7 @@ class MainActivity : BaseActivity(), TencentLocationListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        register(this)
         binding.viewModel = weatherViewModel
         binding.lifecycleOwner = this
         setStatusBarTranslucent()
@@ -80,7 +83,7 @@ class MainActivity : BaseActivity(), TencentLocationListener {
                     this@MainActivity,
                     R.layout.item_daily_index,
                     it as ArrayList<Index>
-                ){
+                ) {
                     override fun converted(holder: ViewHolder, t: Index, position: Int) {
                         holder.getView<TextView>(R.id.title).text = it[position].title
                         holder.getView<TextView>(R.id.level).text = it[position].level
@@ -153,6 +156,20 @@ class MainActivity : BaseActivity(), TencentLocationListener {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         placeViewModel.fetchPlaceInfo(this)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMsgEvent(event: EventMsg<*>) {
+
+        if (event.code == CODE_INIT_LOCATION) {
+            initLocationInfo()
+        }
 
     }
 }
