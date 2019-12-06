@@ -37,6 +37,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.MainActivity"></activity>
+        <!--<receiver android:name=".ui.widget.WeatherWidget"
+            android:icon="@drawable/ic_weather_sun_sunny">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weather_info"/>
+        </receiver>-->
         <meta-data android:name="TencentMapSDK" android:value="LJWBZ-FFS3G-5IGQ6-I3YHD-CFK7T-YPFKE"/>
     </application>
 

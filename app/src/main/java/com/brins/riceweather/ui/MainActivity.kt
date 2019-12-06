@@ -85,7 +85,7 @@ class MainActivity : BaseActivity(), TencentLocationListener {
                     it as ArrayList<Index>
                 ) {
                     override fun converted(holder: ViewHolder, t: Index, position: Int) {
-                        holder.getView<TextView>(R.id.title).text = it[position].title
+                        holder.getView<TextView>(R.id.title).text = it[position].title()
                         holder.getView<TextView>(R.id.level).text = it[position].level
                         holder.getView<TextView>(R.id.desc).text = it[position].desc
 

@@ -10,6 +10,7 @@ import com.brins.riceweather.data.model.weather.HeWeather
 import com.brins.riceweather.data.model.weather.Index
 import com.brins.riceweather.data.model.weather.Weather
 import com.brins.riceweather.data.model.weather.WeatherDetail
+import com.brins.riceweather.ui.widget.WeatherWidget
 import com.brins.riceweather.utils.*
 import kotlinx.coroutines.launch
 
@@ -42,6 +43,7 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
             isRefreshed.value = false
             currentTime = System.currentTimeMillis()
             SpUtils.obtain(FILE_COMMON, RiceWeatherApplication.context).save(KEY_TIME, currentTime)
+//            WeatherWidget.updateRemoteViews(viewModel = data)
         }, {
             Toast.makeText(RiceWeatherApplication.context, it.message, Toast.LENGTH_SHORT).show()
             isRefreshed.value = false
@@ -68,6 +70,7 @@ class WeatherViewModel(private val repository: WeatherRepository) : ViewModel() 
             weather.value = data.weather?.get(0)
             index.value = weather.value?.index
             weatherId = data.city
+//            WeatherWidget.updateRemoteViews(viewModel = data)
         }, {
             Toast.makeText(RiceWeatherApplication.context, it.message, Toast.LENGTH_SHORT).show()
         })
